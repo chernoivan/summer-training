@@ -4,39 +4,45 @@ import java.util.ArrayList;
 
 public class Model {
 
-    private View view = new View();
+    private int minBarrier;
+    private int maxBarrier;
 
     public ArrayList<Integer> numbers = new ArrayList();
 
-    public Integer rightNumber = (int) (Math.random() * 100);
+    public Integer rightNumber;
 
-    public void numberSearcher(Integer number) {
-        if (number > 100 || number < 0) {
-            view.printMessage(View.INPUT_DATA_OUT_OF_RANGE);
-        } else if (number > rightNumber) {
-            view.printMessage(View.INPUT_NUMBER_TO_HIGH);
-            setNumberToArray(number);
+    public boolean numberSearcher(Integer number) {
+        numbers.add(number);
+        if (number > rightNumber) {
+            maxBarrier = number;
         } else if (number < rightNumber) {
-            view.printMessage(View.INPUT_NUMBER_TO_LOW);
-            setNumberToArray(number);
+            minBarrier = number;
         } else {
-            view.printMessage(View.INPUT_NUMBER_IS_RIGHT);
-            setNumberToArray(number);
-            view.printAllNumbers(getAllAttempts());
+            return false;
         }
-        getAllAttempts();
+        return true;
     }
 
-    public Integer getRightNumber() {
-        return rightNumber;
+    public void setRightNumber() {
+        rightNumber = (int) Math.ceil(Math.random() *
+                (maxBarrier - minBarrier - 1) + minBarrier);
+    }
+
+    public void setPrimaryBarrier(int minBarrier, int maxBarrier) {
+        this.minBarrier = minBarrier;
+        this.maxBarrier = maxBarrier;
+    }
+
+    public int getMinBarrier() {
+        return minBarrier;
+    }
+
+    public int getMaxBarrier() {
+        return maxBarrier;
     }
 
     public ArrayList getAllAttempts() {
         return numbers;
-    }
-
-    public void setNumberToArray(Integer number) {
-        numbers.add(number);
     }
 
 }
