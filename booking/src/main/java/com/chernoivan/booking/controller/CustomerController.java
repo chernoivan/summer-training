@@ -1,13 +1,11 @@
 package com.chernoivan.booking.controller;
 
-import com.chernoivan.booking.domain.Customer;
+import com.chernoivan.booking.dto.CustomerCreateDTO;
+import com.chernoivan.booking.dto.CustomerPatchDTO;
 import com.chernoivan.booking.dto.CustomerReadDTO;
 import com.chernoivan.booking.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,5 +19,15 @@ public class CustomerController {
     @GetMapping("/{id}")
     public CustomerReadDTO getApplicationUser(@PathVariable UUID id) {
         return customerService.getCustomer(id);
+    }
+
+    @PostMapping
+    public CustomerReadDTO createCustomer(@RequestBody CustomerCreateDTO createDTO) {
+        return customerService.createCustomer(createDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public CustomerReadDTO patchCustomer(@PathVariable UUID id, @RequestBody CustomerPatchDTO patch) {
+        return customerService.patchCustomer(id, patch);
     }
 }

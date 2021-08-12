@@ -1,14 +1,9 @@
 package com.chernoivan.booking.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.UUID;
-
-@Getter
-@Setter
-public class CustomerReadDTO {
-    private UUID id;
+@Data
+public class CustomerPatchDTO {
     private String firstName;
     private String lastName;
     private String phone;
